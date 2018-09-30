@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-a=(["+",3],[2,4,3])
-b=(["+",5],[1])
+a=(["+",3],[2,4])
+b=(["-",5],[1])
 def imprimir(a):
 	B , C =a[0]+["."]+a[1] , ""
 	for i in range(len(B)):
@@ -99,10 +99,56 @@ def resta1(a,b):
         #print(s)    
         print(n)
     return
-print(3.243-5.1)
-resta1(a,b)
+#print(453.243-5.1)
+#resta1(a,b)
+def multiplicacion1(a,b):
+    a0=len(a[0])
+    a1=len(a[1])
+    b0=len(a[0])
+    b1=len(a[1])
+    rellenar(a,b)
+    B , C =a[0]+a[1] , ""
+    for i in range(1,len(B)):
+        C += str(B[i])
+    D , E =b[0]+b[1] , ""
+    for i in range(1,len(D)):
+        E += str(D[i])
+    c = int(C)
+    e = int(E)
+    s = c*e
+    if a[0][0]==b[0][0]:
+        n=([],[])
+        l=intlist(s)
+        print(l)
+        for k in range(len(l)-1,(len(l)-(a1+b1)),-1):
+            n[1].insert(0,l[k])
+        l.reverse()
+        for i in range(len(l)-1,(a1+b1)-1,-1):
+            n[0].insert(0,l[i])
+        n[0].reverse()
+        n[0].insert(0,"+")
+        print(s)    
+        print(n)
+    if a[0][0]!=b[0][0]:
+        if c<0:
+            c = c*(-1)
+        if e<0:
+            e = e*(-1)
+        n=([],[])
+        l=intlist(s)
+        print(l)
+        for k in range(len(l)-1,(len(l)-(a1+b1)),-1):
+            n[1].insert(0,l[k])
+        l.reverse()
+        for i in range(len(l)-1,(a1+b1)-1,-1):
+            n[0].insert(0,l[i])
+        n[0].reverse()
+        n[0].insert(0,"-")
+        #print(s)    
+        print(n)
 #Desde esta parte es la forma de operar con la tuplas sin transformarlo a entero
-
+print(3.24*5.1)
+multiplicacion1(a,b)
 def suma(a,b):	
     rellenar(a,b)
     a[0].insert(1,0)
