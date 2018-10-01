@@ -79,7 +79,7 @@ def suma1(a,b):
         n[0].insert(0,l[i])
     n[0].reverse()
     n[0].insert(0,a[0][0])
-    print(s)    
+    #print(s)    
     print(n)
     return
 #print(73.243+5.1)
@@ -129,14 +129,14 @@ def multiplicacion1(a,b):
     c=tupint(a)
     e=tupint(b)
     s = c*e
-    print(s)
+    #print(s)
     if a[0][0]==b[0][0]:
         n=([],[])
         l=intlist(s)
         if a[1][-1] == 0 or b[1][-1]==0:
             if l[-1]==0:
                 l.pop(-1)
-        print(l)
+        #print(l)
         for k in range(len(l)-1,(len(l)-(a1+b1))-1,-1):
             n[1].insert(0,l[k])
         l.reverse()
@@ -156,7 +156,7 @@ def multiplicacion1(a,b):
         if a[1][-1] == 0 or b[1][-1]==0:
             if l[-1]==0:
                 l.pop(-1)
-        print(l)
+        #print(l)
         for k in range(len(l)-1,(len(l)-(a1+b1))-1,-1):
             n[1].insert(0,l[k])
         l.reverse()
@@ -172,18 +172,18 @@ def division1(a,b):
     c=tupint(a)
     e=tupint(b)
     s = c/e
-    print(s)
+    #print(s)
     if a[0][0]==b[0][0]:
         n=([],[])
         S=str(s)
         l1=list(S[0:S.find(".")])
-        print(l1)
+        #print(l1)
         l2=list(S[S.find(".")+1:])
-        print(l2)
+        #print(l2)
         if a[1][-1] == 0 or b[1][-1]==0:
             if l2[-1]==0:
                 l2.pop(-1)
-        print(l2)
+        #print(l2)
         for k in range(len(l2)-1,-1,-1):
             n[1].insert(0,int(l2[k]))
         l1.reverse()
@@ -205,7 +205,7 @@ def division1(a,b):
         if a[1][-1] == 0 or b[1][-1]==0:
             if l2[-1]==0:
                 l2.pop(-1)
-        print(l2)
+        #print(l2)
         for k in range(len(l2)-1,-1,-1):
             n[1].insert(0,int(l2[k]))
         l1.reverse()
@@ -215,8 +215,8 @@ def division1(a,b):
         n[0].insert(0,"-")
         #print(s)    
         print(n)
-print(75.123/5.12)
-division1(a,b)
+#print(75.123/5.12)
+#division1(a,b)
 #Desde esta parte es la forma de operar con la tuplas sin transformarlo a entero
 def suma(a,b):	
     rellenar(a,b)
@@ -232,7 +232,7 @@ def suma(a,b):
     c[0].insert(0,a[0][0])
     if c[0][1] ==0:
         c[0].pop(1)
-    imprimir (c)
+    #imprimir (c)
     print (c)
 #suma(a,b)	
 """def resta(a,b):
@@ -295,7 +295,7 @@ def division(a,b,n=100):
                 
     print(F)     
 
-division(a,b)   
+#division(a,b)   
 def comparacion(a,b):
     rellenar(a,b)
     c=1
@@ -310,3 +310,16 @@ def comparacion(a,b):
     if c==0:
         print("No son iguales")    
 #comparacion(a,b)
+if __name__ =="__main__":
+    a=(["+",7,5],[1,2,3])
+    b=(["+",5],[1,2])
+    
+    c=suma(a,b)
+    d=resta1(a,b)
+    e=multiplicacion1(a,b)
+    f=division(a,b)
+    g=comparacion(a,b)
+    print(c)
+    print(d)
+    print(e)
+    print(f)
