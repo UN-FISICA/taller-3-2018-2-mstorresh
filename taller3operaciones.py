@@ -7,7 +7,7 @@ def imprimir(x):
 	for i in range(len(B)):
 		C += str(B[i])
 	print(C)
-	return
+	return C
 
 def rellenar(a,b):
 	if len(a[1])>len(b[1]):
@@ -62,7 +62,32 @@ def listri(x,d): #transforma de lista a string
   for u in range(len(x)): x[u]=str(x[u])
   return (list('+'+str(''.join(x[:len(x)-d]))),list(str(''.join(x[len(x)-d:]))))
  else: pass#
-    
+def floup(x): #transforma de un float a una tupla
+    n=([],[])
+    S=str(x)
+    c=0
+    l1=list(S[0:S.find(".")])
+    l2=list(S[S.find(".")+1:])
+    if l1[0]=="+":
+        c=1
+    if l1[0]=="-":
+        c=2
+    if type(l1[0])!=int:
+        l1.pop(0)
+    for k in range(len(l2)-1,-1,-1):
+            n[1].insert(0,int(l2[k]))
+    l1.reverse()
+    for i in range(len(l1)-1,-1,-1):
+        n[0].insert(0,int(l1[i]))
+    n[0].reverse()
+    if c==0 or c==1:
+        n[0].insert(0,"+")
+    if c==2:
+        n[0].insert(0,"-")
+    print(n)
+    return n
+#floup(-3.14)  
+        
 #Desde esta parte es la forma de operar con las tuplas transformandolas a entero            
 def suma1(a,b):
     c=tupstr(a)
@@ -81,7 +106,7 @@ def suma1(a,b):
     n[0].insert(0,a[0][0])
     #print(s)    
     print(n)
-    return
+    return n
 #print(73.243+5.1)
 #suma1(a,b)
 def resta1(a,b):
@@ -118,7 +143,7 @@ def resta1(a,b):
         n[0].insert(0,"-")
         #print(s)    
         print(n)
-    return
+    return n
 #print(453.243-5.1)
 #resta1(a,b)
 def multiplicacion1(a,b):
@@ -166,6 +191,7 @@ def multiplicacion1(a,b):
         n[0].insert(0,"-")
         #print(s)    
         print(n)
+    return n
 #print(75.123*5.12)
 #multiplicacion1(a,b)
 def division1(a,b):
@@ -215,6 +241,7 @@ def division1(a,b):
         n[0].insert(0,"-")
         #print(s)    
         print(n)
+    return n
 #print(75.123/5.12)
 #division1(a,b)
 #Desde esta parte es la forma de operar con la tuplas sin transformarlo a entero
@@ -233,7 +260,8 @@ def suma(a,b):
     if c[0][1] ==0:
         c[0].pop(1)
     #imprimir (c)
-    print (c)
+    #print (c)
+    return c
 #suma(a,b)	
 """def resta(a,b):
     if a[0][0] =="+" and b[0][0]=="-":"""
@@ -293,7 +321,8 @@ def division(a,b,n=100):
     else:
         F[0].insert(0,'-')
                 
-    print(F)     
+    print(F)  
+    return F
 
 #division(a,b)   
 def comparacion(a,b):
@@ -306,9 +335,11 @@ def comparacion(a,b):
         if a[1][j] != b[1][j]:
             c=0
     if c==1:
-        print("son iguales")
+        #print("son iguales")
+        return a==b
     if c==0:
-        print("No son iguales")    
+        #print("No son iguales")
+        return False
 #comparacion(a,b)
 if __name__ =="__main__":
     a=(["+",7,5],[1,2,3])
@@ -323,3 +354,56 @@ if __name__ =="__main__":
     print(d)
     print(e)
     print(f)
+
+#------------------------------------------------------------ empieza lo de objetos    
+class Decimales:
+    def __init__(self, z): #parametro son las tuplas, enteros y decimales
+        self.z=z
+        if type(a)==tuple:
+            self.z=z
+        else:
+            self.z=floup(z)
+    def __add__(self,other):
+        if type(other) != tuple:
+            other = floup(other)
+        return Decimales(suma(self.z,other))
+    def __sub__(self,other):
+        if type(other) != tuple:
+            other = floup(other)
+        return Decimales(resta1(self.z,other))
+    def __mul__(self,other):
+        if type(other) != tuple:
+            other = floup(other)
+        return Decimales(multiplicacion1(self.z,other))
+    def __div__(self,other):
+        if type(other) != tuple:
+            other = floup(other)
+        return Decimales(division(self.z,other))
+    def __radd__(self,other):
+        if type(other) != tuple:
+            other = floup(other)
+        return Decimales(suma(other,self.z))
+    def __rsub__(self,other):
+        if type(other) != tuple:
+            other = floup(other)
+        return Decimales(resta1(other,self.z))
+    def __rmul__(self,other):
+        if type(other) != tuple:
+            other = floup(other)
+        return Decimales(multiplicacion1(other,self.z))
+    def __rdiv__(self,other):
+        if type(other) != tuple:
+            other = floup(other)
+        return Decimales(division1(other,self.z))
+    def __str__(self):
+        return "{}".format(self.z)
+    def __repr__(self):
+        return "{}".format(self.z)
+    def __eq__(self,other):
+        if type(other) != tuple:
+            other = floup(other)
+        return comparacion(self.z,other)
+    def __ne__(self,other):
+        if comparacion(self.z,other)==False:
+            return 0
+        
