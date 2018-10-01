@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-a=(["+",5],[1,2])
+a=(["+",7,5],[1,2,3])
 b=(["+",5],[1,2])
 def imprimir(x):
 	B , C =x[0]+["."]+x[1] , ""
@@ -22,6 +22,11 @@ def rellenar(a,b):
 	elif len(b[0])>len(a[0]):
 		for i in range(len(b[0])-len(a[0])):
 			a[0].insert(1,0)
+def quitceros(a): #quita los ceros
+    for j in range(len(a)):
+        if a[0]==0:
+            a.pop(0)    
+    return(a)
 def intlist(n): #transforma un entero en una lista
     l = []
     while n != 0:
@@ -47,6 +52,11 @@ def tupflo(x): #transforma de tupla a float
         E += str(D[i])
     p = float(E)
     return p
+def lisint(x): #transforma de una lista a un entero
+    B=""
+    for i in range(len(x)):
+        B +=str(x[i])
+    return int(B)
 def listri(x,d): #transforma de lista a string
  if d<len(x):
   for u in range(len(x)): x[u]=str(x[u])
@@ -114,8 +124,8 @@ def resta1(a,b):
 def multiplicacion1(a,b):
     a0=len(a[0])
     a1=len(a[1])
-    b0=len(a[0])
-    b1=len(a[1])
+    b0=len(b[0])
+    b1=len(b[1])
     c=tupint(a)
     e=tupint(b)
     s = c*e
@@ -127,14 +137,14 @@ def multiplicacion1(a,b):
             if l[-1]==0:
                 l.pop(-1)
         print(l)
-        for k in range(len(l)-1,(len(l)-(a1+b1)),-1):
+        for k in range(len(l)-1,(len(l)-(a1+b1))-1,-1):
             n[1].insert(0,l[k])
         l.reverse()
         for i in range(len(l)-1,(a1+b1)-1,-1):
             n[0].insert(0,l[i])
         n[0].reverse()
         n[0].insert(0,"+")
-        print(s)    
+        #print(s)    
         print(n)
     if a[0][0]!=b[0][0]:
         if c<0:
@@ -147,7 +157,7 @@ def multiplicacion1(a,b):
             if l[-1]==0:
                 l.pop(-1)
         print(l)
-        for k in range(len(l)-1,(len(l)-(a1+b1)),-1):
+        for k in range(len(l)-1,(len(l)-(a1+b1))-1,-1):
             n[1].insert(0,l[k])
         l.reverse()
         for i in range(len(l)-1,(a1+b1)-2,-1):
@@ -156,10 +166,57 @@ def multiplicacion1(a,b):
         n[0].insert(0,"-")
         #print(s)    
         print(n)
-#print(73.243*5.12)
+#print(75.123*5.12)
 #multiplicacion1(a,b)
-#def division1(a,b):
-    
+def division1(a,b):
+    c=tupint(a)
+    e=tupint(b)
+    s = c/e
+    print(s)
+    if a[0][0]==b[0][0]:
+        n=([],[])
+        S=str(s)
+        l1=list(S[0:S.find(".")])
+        print(l1)
+        l2=list(S[S.find(".")+1:])
+        print(l2)
+        if a[1][-1] == 0 or b[1][-1]==0:
+            if l2[-1]==0:
+                l2.pop(-1)
+        print(l2)
+        for k in range(len(l2)-1,-1,-1):
+            n[1].insert(0,int(l2[k]))
+        l1.reverse()
+        for i in range(len(l1)-1,-1,-1):
+            n[0].insert(0,int(l1[i]))
+        n[0].reverse()
+        n[0].insert(0,"+")
+        #print(s)    
+        print(n)
+    if a[0][0]!=b[0][0]:
+        if c<0:
+            c = c*(-1)
+        if e<0:
+            e = e*(-1)
+        n=([],[])
+        S=str(s)
+        l1=list(S[0:S.find(".")])
+        l2=list(S[S.find(".")+1:])
+        if a[1][-1] == 0 or b[1][-1]==0:
+            if l2[-1]==0:
+                l2.pop(-1)
+        print(l2)
+        for k in range(len(l2)-1,-1,-1):
+            n[1].insert(0,int(l2[k]))
+        l1.reverse()
+        for i in range(len(l1)-1,-1,-1):
+            n[0].insert(0,int(l1[i]))
+        n[0].reverse()
+        n[0].insert(0,"-")
+        #print(s)    
+        print(n)
+print(75.123/5.12)
+division1(a,b)
 #Desde esta parte es la forma de operar con la tuplas sin transformarlo a entero
 def suma(a,b):	
     rellenar(a,b)
@@ -206,6 +263,39 @@ def suma(a,b):
 print (73.245*5.12)
 multiplicacion(a,b)
 """
+def division(a,b,n=100):
+    c=max(len(b[1]),len(a[1]))
+    for i in range(c-len(a[1])):
+        a[1].append(0)
+    for j in range(c-len(b[1])):
+        b[1].append(0)
+    a1=a[0][:]    
+    a1.pop(0)
+    a1.extend(a[1])
+    b1=b[0][:]
+    b1.pop(0)
+    b1.extend(b[1])
+    quitceros(a1)
+    quitceros(b1)
+    a1=lisint(a1)
+    b1=lisint(b1)
+    l1= list(map(int, str(a1//b1)))
+    l2=[]
+    res=a1%b1    
+    for k in range(n):
+        div=res*10
+        prod=div//b1*b1
+        l2.append(div//b1)
+        res=div-prod
+    F=(l1,l2)
+    if a[0][0]==b[0][0]:
+        F[0].insert(0,'+')
+    else:
+        F[0].insert(0,'-')
+                
+    print(F)     
+
+division(a,b)   
 def comparacion(a,b):
     rellenar(a,b)
     c=1
@@ -219,4 +309,4 @@ def comparacion(a,b):
         print("son iguales")
     if c==0:
         print("No son iguales")    
-comparacion(a,b)
+#comparacion(a,b)
