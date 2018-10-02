@@ -1,45 +1,72 @@
-class MyFloat:
-
-    def __init__(self):
-        pass
-
-    def __add__(self):
-        pass
-
-    def __sub__(self):
-        pass
-
-    def __mul__(self):
-        pass
-
-    def __div__(self):
-        pass
-
-    def __radd__(self):
-        pass
-
-    def __rsub__(self):
-        pass
-
-    def __rmul__(self):
-        pass
-
-    def __rdiv__(self):
-        pass
-
+import myfloat_func as my
+class Decimales:
+    def __init__(self, z): #parametro son las tuplas, enteros y decimales
+        self.z=z
+        if (type(z) is int) or (type(z) is float):
+            self.z=my.floup(z)
+        else:
+            self.z=z
+    def __add__(self,other):
+        if isinstance(other,(int,float)):
+            other = my.floup(other)
+            return Decimales(my.suma(self.z,other))
+        if isinstance(other, Decimales):
+            return Decimales(my.suma(self.z,other))
+    def __sub__(self,other):
+        if isinstance(other,(int,float)):
+            other = my.floup(other)
+            return Decimales(my.resta1(self.z,other))
+        if isinstance(other,Decimales):
+            return Decimales(my.resta1(self.z,other))
+    def __mul__(self,other):
+        if isinstance(other,(int,float)):
+            other = my.floup(other)
+            return Decimales(my.multiplicacion1(self.z,other))
+        if isinstance(other,Decimales):
+            return Decimales(my.multiplicacion1(self.z,other))
+    def __truediv__(self,other):
+        if isinstance(other,(int,float)):
+            other = my.floup(other)
+            return Decimales(my.division(self.z,other))
+        if isinstance(other,Decimales):
+            return Decimales(my.division(self.z,other))
+    def __radd__(self,other):
+        if isinstance(other,(int,float)):
+            other = my.floup(other)
+            return Decimales(my.suma(other,self.z))
+        if isinstance(other,Decimales):
+            return Decimales(my.suma(other,self.z))
+    def __rsub__(self,other):
+        if isinstance(other,(int,float)):
+            other = my.floup(other)
+            return Decimales(my.resta1(other,self.z))
+        if isinstance(other,Decimales):
+            return Decimales(my.resta1(other,self.z))
+    def __rmul__(self,other):
+        if isinstance(other,(int,float)):
+            other = my.floup(other)
+            return Decimales(my.multiplicacion1(other,self.z))
+        if isinstance(other,Decimales):
+            return Decimales(my.multiplicacion1(other,self.z))
+    def __rtruediv__(self,other):
+        if isinstance(other,(int,float)):
+            other = my.floup(other)
+            return Decimales(my.division(other,self.z))
+        if isinstance(other,Decimales):
+            return Decimales(my.division(other,self.z))
     def __str__(self):
-        pass
-
+        return "{}".format(self.z)
     def __repr__(self):
-        pass
-
-    def __eq__(self):
-        pass
-
-    def __ne__(self):
-        pass
-
-if __name__ == "__main__":
-    # Escribir aca el codigo para calcular pi. Al finalizar el calculo solo
-    # debe imprimir el valor de pi, sin otros textos ni nada
-    pass
+        return "{}".format(self.z)
+    def __eq__(self,other):
+        if type(other) != tuple:
+            other = my.floup(other)
+        return my.comparacion(self.z,other)
+    def __ne__(self,other):
+        if my.comparacion(self.z,other)==False:
+            pass
+if __name__=="main":
+    pi=Decimales(0)
+    for k in range(0,30000):
+        pi = pi + (4*(-1)**k)/(Decimales(2*k+1))
+    print(my.imprimir(pi))
