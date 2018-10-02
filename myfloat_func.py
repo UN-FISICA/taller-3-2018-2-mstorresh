@@ -44,6 +44,12 @@ def tupint(x): #transforma de tupla a entero
         C += str(B[i])
     h = int(C)
     return h 
+def tupint1(x):
+    B,C=x[0]+x[1], ""
+    for i in range(1,len(B)):
+        C += str(B[i])
+    h = int(C)
+    return h
 def tupflo(x): #transforma de tupla a float
     D , E =x[0]+["."]+x[1] , ""
     for i in range(len(D)):
@@ -56,31 +62,24 @@ def lisint(x): #transforma de una lista a un entero
         B +=str(x[i])
     return int(B)
 
-def floup(x): #transforma de un float a una tupla
-    n=([],[])
-    S=str(x)
-    c=0
-    l1=list(S[0:S.find(".")])
-    l2=list(S[S.find(".")+1:])
-    if l1[0]=="+":
-        c=1
-    if l1[0]=="-":
-        c=2
-    if type(l1[0])!=int:
-        l1.pop(0)
-    for k in range(len(l2)-1,-1,-1):
-            n[1].insert(0,int(l2[k]))
-    l1.reverse()
-    for i in range(len(l1)-1,-1,-1):
-        n[0].insert(0,int(l1[i]))
-    n[0].reverse()
-    if c==0 or c==1:
-        n[0].insert(0,"+")
-    if c==2:
-        n[0].insert(0,"-")
-    #print(n)
-    return n 
-        
+def numtup(x): #transforma de un float o entero a una tupla
+    c=1
+    if x<0:
+        x=-1*x
+        c=0
+    else:
+        x=x
+    if type(x)==float:
+        t1=list(map(int,str(int(x))))
+        t2=list(map(int,str(x).split(".")[1]))
+    if type(x)==int:
+        t1=list(map(int,str(x)))
+        t2=[0]
+    if c==0:
+        t1.insert(0,"-")
+    else:
+        t1.insert(0,"+")
+    return(t1,t2)
 #Desde esta parte es la forma de operar con las tuplas transformandolas a entero            
 def suma1(a,b):
     c=tupstr(a)
@@ -132,22 +131,21 @@ def multiplicacion1(a,b):
     a1=len(a[1])
     b0=len(b[0])
     b1=len(b[1])
-    c=tupint(a)
-    e=tupint(b)
+    c=tupint1(a)
+    e=tupint1(b)
     s = c*e
     if a[0][0]==b[0][0]:
         n=([],[])
         l=intlist(s)
-        if a[1][-1] == 0 or b[1][-1]==0:
-            if l[-1]==0:
-                l.pop(-1)
+        #print(l)
         for k in range(len(l)-1,(len(l)-(a1+b1))-1,-1):
             n[1].insert(0,l[k])
         l.reverse()
         for i in range(len(l)-1,(a1+b1)-1,-1):
             n[0].insert(0,l[i])
         n[0].reverse()
-        n[0].insert(0,"+")   
+        n[0].insert(0,"+")
+        #print(s)    
         #print(n)
         return n
     if a[0][0]!=b[0][0]:
@@ -157,16 +155,15 @@ def multiplicacion1(a,b):
             e = e*(-1)
         n=([],[])
         l=intlist(s)
-        if a[1][-1] == 0 or b[1][-1]==0:
-            if l[-1]==0:
-                l.pop(-1)
+        #print(l)
         for k in range(len(l)-1,(len(l)-(a1+b1))-1,-1):
             n[1].insert(0,l[k])
         l.reverse()
-        for i in range(len(l)-1,(a1+b1)-2,-1):
+        for i in range(len(l)-1,(a1+b1),-1):
             n[0].insert(0,l[i])
         n[0].reverse()
-        n[0].insert(0,"-")   
+        n[0].insert(0,"-")
+        #print(s)    
         #print(n)
         return n
 def division1(a,b):
