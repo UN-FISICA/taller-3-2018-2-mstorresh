@@ -1,7 +1,5 @@
 #!/usr/bin/python
-# -*- coding: UTF-8 -*-
-a=(["+",7,5],[3])
-b=(["+",5],[1,2])
+
 def imprimir(x):
     B , C =x[0]+["."]+x[1] , ""
     for i in range(len(B)):
@@ -358,25 +356,24 @@ class Decimales:
             other = numtup(other)
             return Decimales(suma(self.z,other))
         if isinstance(other, Decimales):
-            return Decimales(suma(self.z,other))
+            return Decimales(suma(self.z,other.z))
     def __sub__(self,other):
         if isinstance(other,(int,float)):
             other = numtup(other)
             return Decimales(resta1(self.z,other))
         if isinstance(other,Decimales):
-            return Decimales(resta1(self.z,other))
+            return Decimales(resta1(self.z,other.z))
     def __mul__(self,other):
         if isinstance(other,(int,float)):
             other = numtup(other)
             return Decimales(multiplicacion1(self.z,other))
         if isinstance(other,Decimales):
-            return Decimales(multiplicacion1(self.z,other))
+            return Decimales(multiplicacion1(self.z,other.z))
     def __truediv__(self,other):
-        if isinstance(other,(int,float)):
-            other = numtup(other)
-            return Decimales(division(self.z,other))
-        if isinstance(other,Decimales):
-            return Decimales(division(self.z,other))
+        if isinstance (other,Decimales):
+            return Decimales(division(self.z,other.z))
+        elif isinstance (other ,( int , float )):
+            return Decimales(division(self.z,numtup(other)))
     def __radd__(self,other):
         if isinstance(other,(int,float)):
             other = numtup(other)
@@ -396,11 +393,9 @@ class Decimales:
         if isinstance(other,Decimales):
             return Decimales(multiplicacion1(other,self.z))
     def __rtruediv__(self,other):
-        if isinstance(other,(int,float)):
-            other = numtup(other)
-            return Decimales(division(other,self.z))
-        if isinstance(other,Decimales):
-            return Decimales(division(other,self.z))
+        other = Decimales(other)
+        return other/self
+		
     def __str__(self):
         return imprimir(self.z)
     def __repr__(self):
@@ -412,12 +407,19 @@ class Decimales:
     def __ne__(self,other):
         if comparacion(self.z,other)==False:
             pass
-if __name__=="main":
+"""if __name__=="main":
     pi=Decimales(0)
     for k in range(0,30000):
         pi = pi + Decimales(((-1)**k)/(Decimales(2*k+1)))
     pi *=4
-    print(pi)
-
+    print(pi)"""
+pi=Decimales(0)
+for k in range(0,100000):
+    if k%2==0:
+        pi = pi + 1/(Decimales(2*k+1))
+    else:
+        pi = pi - 1/(Decimales(2*k+1))
+pi = pi*4
+print(pi)
     
         
