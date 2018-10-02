@@ -55,9 +55,9 @@ class Decimales:
         if isinstance(other,Decimales):
             return Decimales(my.division(other,self.z))
     def __str__(self):
-        return "{}".format(self.z)
+        return my.imprimir(self.z)
     def __repr__(self):
-        return "{}".format(self.z)
+        return my.imprimir(self.z)
     def __eq__(self,other):
         if type(other) != tuple:
             other = my.numtup(other)
@@ -68,5 +68,6 @@ class Decimales:
 if __name__=="main":
     pi=Decimales(0)
     for k in range(0,30000):
-        pi = pi + (4*(-1)**k)/(Decimales(2*k+1))
-    print(my.imprimir(pi))
+        pi = pi + ((-1)**k)/(Decimales(2*k+1))
+    pi *= 4
+    print(pi)
