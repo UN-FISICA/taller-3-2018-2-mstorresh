@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-a=(["+",7,5],[1,2,3])
+a=(["+",7,5],[3])
 b=(["+",5],[1,2])
 def imprimir(x):
     B , C =x[0]+["."]+x[1] , ""
@@ -8,7 +8,6 @@ def imprimir(x):
         C += str(B[i])
     #print(C)
     return (C)
-	
 def rellenar(a,b):
 	if len(a[1])>len(b[1]):
 		for i in range(len(a[1])-len(b[1])):
@@ -45,7 +44,13 @@ def tupint(x): #transforma de tupla a entero
     for i in range(1,len(B)):
         C += str(B[i])
     h = int(C)
-    return h 
+    return h
+def tupint1(x):
+    B,C=x[0]+x[1], ""
+    for i in range(1,len(B)):
+        C += str(B[i])
+    h = int(C)
+    return h
 def tupflo(x): #transforma de tupla a float
     D , E =x[0]+["."]+x[1] , ""
     for i in range(len(D)):
@@ -62,31 +67,25 @@ def listri(x,d): #transforma de lista a string
   for u in range(len(x)): x[u]=str(x[u])
   return (list('+'+str(''.join(x[:len(x)-d]))),list(str(''.join(x[len(x)-d:]))))
  else: pass#
-def floup(x): #transforma de un float a una tupla
-    n=([],[])
-    S=str(x)
-    c=0
-    l1=list(S[0:S.find(".")])
-    l2=list(S[S.find(".")+1:])
-    if l1[0]=="+":
-        c=1
-    if l1[0]=="-":
-        c=2
-    if type(l1[0])!=int:
-        l1.pop(0)
-    for k in range(len(l2)-1,-1,-1):
-            n[1].insert(0,int(l2[k]))
-    l1.reverse()
-    for i in range(len(l1)-1,-1,-1):
-        n[0].insert(0,int(l1[i]))
-    n[0].reverse()
-    if c==0 or c==1:
-        n[0].insert(0,"+")
-    if c==2:
-        n[0].insert(0,"-")
-    #print(n)
-    return n
-#floup(-3.14)  
+def numtup(x): #transforma de un float o entero a una tupla
+    c=1
+    if x<0:
+        x=-1*x
+        c=0
+    else:
+        x=x
+    if type(x)==float:
+        t1=list(map(int,str(int(x))))
+        t2=list(map(int,str(x).split(".")[1]))
+    if type(x)==int:
+        t1=list(map(int,str(x)))
+        t2=[0]
+    if c==0:
+        t1.insert(0,"-")
+    else:
+        t1.insert(0,"+")
+    return(t1,t2)
+        
         
 #Desde esta parte es la forma de operar con las tuplas transformandolas a entero            
 def suma1(a,b):
@@ -146,22 +145,17 @@ def resta1(a,b):
         #print(n)
         return n
 #print(453.243-5.1)
-#resta1(a,b)
 def multiplicacion1(a,b):
     a0=len(a[0])
     a1=len(a[1])
     b0=len(b[0])
     b1=len(b[1])
-    c=tupint(a)
-    e=tupint(b)
+    c=tupint1(a)
+    e=tupint1(b)
     s = c*e
-    #print(s)
     if a[0][0]==b[0][0]:
         n=([],[])
         l=intlist(s)
-        if a[1][-1] == 0 or b[1][-1]==0:
-            if l[-1]==0:
-                l.pop(-1)
         #print(l)
         for k in range(len(l)-1,(len(l)-(a1+b1))-1,-1):
             n[1].insert(0,l[k])
@@ -180,14 +174,11 @@ def multiplicacion1(a,b):
             e = e*(-1)
         n=([],[])
         l=intlist(s)
-        if a[1][-1] == 0 or b[1][-1]==0:
-            if l[-1]==0:
-                l.pop(-1)
         #print(l)
         for k in range(len(l)-1,(len(l)-(a1+b1))-1,-1):
             n[1].insert(0,l[k])
         l.reverse()
-        for i in range(len(l)-1,(a1+b1)-2,-1):
+        for i in range(len(l)-1,(a1+b1),-1):
             n[0].insert(0,l[i])
         n[0].reverse()
         n[0].insert(0,"-")
@@ -195,7 +186,6 @@ def multiplicacion1(a,b):
         #print(n)
         return n
 #print(75.123*5.12)
-#multiplicacion1(a,b)
 def division1(a,b):
     c=tupint(a)
     e=tupint(b)
@@ -264,8 +254,7 @@ def suma(a,b):
         c[0].pop(1)
     #imprimir (c)
     #print (c)
-    return c
-#suma(a,b)	
+    return c	
 """def resta(a,b):
     if a[0][0] =="+" and b[0][0]=="-":"""
 """def multiplicacion(a,b):
@@ -326,7 +315,6 @@ def division(a,b,n=100):
                 
     #print(F)  
     return F
-
 #division(a,b)   
 def comparacion(a,b):
     rellenar(a,b)
@@ -363,64 +351,64 @@ class Decimales:
     def __init__(self, z): #parametro son las tuplas, enteros y decimales
         self.z=z
         if (type(z) is int) or (type(z) is float):
-            self.z=floup(z)
+            self.z=numtup(z)
         else:
             self.z=z
     def __add__(self,other):
         if isinstance(other,(int,float)):
-            other = floup(other)
+            other = numtup(other)
             return Decimales(suma(self.z,other))
         if isinstance(other, Decimales):
             return Decimales(suma(self.z,other))
     def __sub__(self,other):
         if isinstance(other,(int,float)):
-            other = floup(other)
+            other = numtup(other)
             return Decimales(resta1(self.z,other))
         if isinstance(other,Decimales):
             return Decimales(resta1(self.z,other))
     def __mul__(self,other):
         if isinstance(other,(int,float)):
-            other = floup(other)
+            other = numtup(other)
             return Decimales(multiplicacion1(self.z,other))
         if isinstance(other,Decimales):
             return Decimales(multiplicacion1(self.z,other))
     def __truediv__(self,other):
         if isinstance(other,(int,float)):
-            other = floup(other)
+            other = numtup(other)
             return Decimales(division(self.z,other))
         if isinstance(other,Decimales):
             return Decimales(division(self.z,other))
     def __radd__(self,other):
         if isinstance(other,(int,float)):
-            other = floup(other)
+            other = numtup(other)
             return Decimales(suma(other,self.z))
         if isinstance(other,Decimales):
             return Decimales(suma(other,self.z))
     def __rsub__(self,other):
         if isinstance(other,(int,float)):
-            other = floup(other)
+            other = numtup(other)
             return Decimales(resta1(other,self.z))
         if isinstance(other,Decimales):
             return Decimales(resta1(other,self.z))
     def __rmul__(self,other):
         if isinstance(other,(int,float)):
-            other = floup(other)
+            other = numtup(other)
             return Decimales(multiplicacion1(other,self.z))
         if isinstance(other,Decimales):
             return Decimales(multiplicacion1(other,self.z))
     def __rtruediv__(self,other):
         if isinstance(other,(int,float)):
-            other = floup(other)
+            other = numtup(other)
             return Decimales(division(other,self.z))
         if isinstance(other,Decimales):
             return Decimales(division(other,self.z))
     def __str__(self):
-        return "{}".format(self.z)
+        return imprimir(self.z)
     def __repr__(self):
-        return "{}".format(self.z)
+        return imprimir(self.z)
     def __eq__(self,other):
         if type(other) != tuple:
-            other = floup(other)
+            other = numtup(other)
         return comparacion(self.z,other)
     def __ne__(self,other):
         if comparacion(self.z,other)==False:
@@ -429,7 +417,7 @@ if __name__=="main":
     pi=Decimales(0)
     for k in range(0,30000):
         pi = pi + (4*(-1)**k)/(Decimales(2*k+1))
-    print(imprimir(pi))
+    print(pi)
 
     
         
