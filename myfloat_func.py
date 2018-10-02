@@ -1,5 +1,4 @@
-a=(["+",7,5],[1,2,3])
-b=(["+",5],[1,2])
+
 def imprimir(x):
     B , C =x[0]+["."]+x[1] , ""
     for i in range(len(B)):
@@ -82,8 +81,15 @@ def numtup(x): #transforma de un float o entero a una tupla
     return(t1,t2)
 #Desde esta parte es la forma de operar con las tuplas transformandolas a entero            
 def suma1(a,b):
-    c=tupstr(a)
-    e=tupstr(b)
+    rellenar(a,b)
+    B , C =a[0]+a[1] , ""
+    for i in range(1,len(B)):
+        C += str(B[i])
+    c = int(C)
+    E , D =b[0]+b[1] , ""
+    for i in range(1,len(E)):
+        D += str(E[i])
+    e = int(D)
     s = c+e
     n = ([],[])
     l=intlist(s)
@@ -97,8 +103,15 @@ def suma1(a,b):
     #print(n)
     return n
 def resta1(a,b):
-    c=tupint(a)
-    e=tupint(b)
+    rellenar(a,b)
+    B , C =a[0]+a[1] , ""
+    for i in range(1,len(B)):
+        C += str(B[i])
+    c = int(C)
+    E , D =b[0]+b[1] , ""
+    for i in range(1,len(E)):
+        D += str(E[i])
+    e = int(D)
     s = c-e
     if c>e:
         n=([],[])
