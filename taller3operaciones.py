@@ -349,7 +349,6 @@ def comparacion(a,b):
 #------------------------------------------------------------ empieza lo de objetos    
 class Decimales:
     def __init__(self, z): #parametro son las tuplas, enteros y decimales
-        self.z=z
         if (type(z) is int) or (type(z) is float):
             self.z=numtup(z)
         else:
@@ -416,7 +415,8 @@ class Decimales:
 if __name__=="main":
     pi=Decimales(0)
     for k in range(0,30000):
-        pi = pi + (4*(-1)**k)/(Decimales(2*k+1))
+        pi = pi + Decimales(((-1)**k)/(Decimales(2*k+1)))
+    pi *=4
     print(pi)
 
     
