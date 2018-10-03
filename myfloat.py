@@ -63,9 +63,14 @@ class Decimales:
             pass
 if __name__=="main":
     pi=Decimales(0)
-    for k in range(0,30000):
-        pi = pi + Decimales(((-1)**k)/(Decimales(2*k+1)))
-    pi *=4
+    for k in range(0,100000000):
+        if k%2==0:
+            pi = pi + 1/(Decimales(2*k+1))
+        else:
+            pi = pi - 1/(Decimales(2*k+1))
+    pi = pi*4
+    for j in range(30,len(pi.z[1])):
+        pi.z[1].pop(-1)
     print(pi)
 pi=Decimales(0)
 for k in range(0,100000000):
