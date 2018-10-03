@@ -61,7 +61,7 @@ class Decimales:
     def __ne__(self,other):
         if my.comparacion(self.z,other)==False:
             pass
-if __name__=="main":
+if __name__=="__main__":
     pi=Decimales(0)
     for k in range(0,100000000):
         if k%2==0:
@@ -72,7 +72,7 @@ if __name__=="main":
     for j in range(30,len(pi.z[1])):
         pi.z[1].pop(-1)
     print(pi)
-pi=Decimales(0)
+"""pi=Decimales(0)
 for k in range(0,100000000):
     if k%2==0:
         pi = pi + 1/(Decimales(2*k+1))
@@ -81,5 +81,5 @@ for k in range(0,100000000):
 pi = pi*4
 for j in range(30,len(pi.z[1])):
     pi.z[1].pop(-1)
-print(pi)
+print(pi)"""
     
